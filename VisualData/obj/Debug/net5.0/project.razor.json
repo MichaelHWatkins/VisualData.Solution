@@ -1,5 +1,5 @@
 {
-  "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData.Solution.csproj",
+  "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/VisualData.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15616,41 +15616,41 @@
     ],
     "CSharpLanguageVersion": 900
   },
-  "RootNamespace": "VisualData.Solution",
+  "RootNamespace": "VisualData",
   "Documents": [
     {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/Shared/_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/Shared/_ValidationScriptsPartial.cshtml",
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Shared/_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/Shared/Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/_ViewImports.cshtml",
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/Home/Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Home/Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/Views/Home/Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Shared/Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Home/Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
     }
   ],
