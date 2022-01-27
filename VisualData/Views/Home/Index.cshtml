@@ -1,8 +1,328 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using VisualData.Models;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*
+  1. Case data: cases, deaths, tests(positive and negative)
+  * Cases - done
+  * Positive Tests - done
+  * Deaths - done
+  2. Hospital beds and ICU beds, available, used, etc
+  * Capacity - done
+  * CurrentUsageTotal - done
+  * Current UsageCovid - done
+  3. Vaccinations: distributed, initiated, completed, add dose
+  * vaccinesDistributed
+  * vaccinationsInitiated
+  * VaccinationsCompleted
+*@
+  @{
+    @* int caseTotal = 0; *@
+    int deathTotal = 0;
+    int vaccinations = 0;
+    double infectionRate = 0.0;
+  }
+  @foreach (var data in Model)
+  {
+    @*caseTotal = caseTotal + @data.actuals.cases;
+    if (data.actuals.cases != null)
+    {
+      caseTotal = caseTotal + @data.actuals.cases;
+    } *@
+    deathTotal = deathTotal + @data.actuals.deaths;
+    if (data.actuals.vaccinesDistributed != null)
+    {
+      vaccinations = vaccinations + @data.actuals.vaccinesDistributed;
+    }
+    if (data.metrics.infectionRate != null)
+    {
+      infectionRate = infectionRate + (@data.metrics.infectionRate / 50);
+    }
+  }
+
+<div id="hero">
+  <div class="container">
+    <div id="heroText">
+      <h1 class="display-4">Covid-19 Dashboard</h1>
+      <p class="lead">Up-to-date info and resources— local and national</p>
+    </div>
+  </div>
 </div>
+
+    <div class="card">
+      @*<img class="card-img-top" src="../wwwroot/img/wa.jpg" alt="USA">*@
+      <div class="card-body">
+        <h2 class="card-title">United States of Covid</h2>
+        @*<h3 class="card-text"># of Cases: @caseTotal</h3>*@
+        <h3 class="card-text"># of Vaccines Given: @vaccinations</h3>
+        <h3 class="card-text"># of Deaths: @deathTotal</h3>
+        <p class="card-text"><small class="text-muted">Powered by CovidActNow</small></p>
+      </div>
+    </div>
+
+<h3>Covid Case Statistics by State</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">State</th>
+      <th class="text-center" scope="col">Infection Rate</th>
+      <th class="text-center" scope="col">Cases</th>
+      <th class="text-center" scope="col">Deaths</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var data in Model)
+    { 
+      @if (@data.state == "WA")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.cases</td>
+          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
+          <td class="text-center" scope="col">@data.actuals.deaths</td>
+        </tr>
+      } 
+      @if (@data.state == "OR")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.cases</td>
+          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
+          <td class="text-center" scope="col">@data.actuals.deaths</td>
+        </tr>
+      }
+      @if (@data.state == "AK")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.cases</td>
+          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
+          <td class="text-center" scope="col">@data.actuals.deaths</td>
+        </tr>
+      }
+      @if (@data.state == "CO")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.cases</td>
+          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
+          <td class="text-center" scope="col">@data.actuals.deaths</td>
+        </tr>
+      }
+      @if (@data.state == "GA")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.cases</td>
+          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
+          <td class="text-center" scope="col">@data.actuals.deaths</td>
+        </tr>
+      }
+    }
+  </tbody>
+</table>
+<h3>Covid Vaccination Statistics by State</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center"      scope="col">State</th>
+      <th class="text-center" scope="col">ICU Beds Capacity</th>
+      <th class="text-center" scope="col">ICU Beds Used</th>
+      <th class="text-center" scope="col">ICU Beds Covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var data in Model)
+    { 
+      @if (@data.state == "WA")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+        </tr>
+      } 
+      @if (@data.state == "OR")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+        </tr>
+      }
+      @if (@data.state == "AK")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+        </tr> 
+      }
+      @if (@data.state == "CO")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+        </tr>
+      }
+      @if (@data.state == "GA")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
+          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+        </tr>
+      }
+    }
+  </tbody>
+</table>
+<h3>Vaccine Statistics by State</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center"      scope="col">State</th>
+      <th class="text-center" scope="col">Administered</th>
+      <th class="text-center" scope="col">Initiated</th>
+      <th class="text-center" scope="col">Completed</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var data in Model)
+    { 
+      @if (@data.state == "WA")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+        </tr>
+      }   
+      @if (@data.state == "OR")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+        </tr>
+      }
+      @if (@data.state == "AK")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+        </tr> 
+      }
+      @if (@data.state == "CO")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+        </tr>
+      }
+      @if (@data.state == "GA")
+      {
+        <tr>
+          <td class="text-center" scope="col">@data.state</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
+          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+        </tr>
+      }
+    }
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+  <!-- graphs  -->
+@*
+  @{
+    int caseTotal = 0;
+    int icuBedsTotal = 0;
+    List<string> states = new List<string> { };
+    string[] arrayOfStates = new string[53];
+    int[] arrayOfDataIcuBeds = new int[53];
+    List<int> datum = new List<int> { };
+  }
+  @foreach (var data in Model)
+  {
+    if (data.actuals.vaccinesDistributed != null)
+    {
+      caseTotal = caseTotal + @data.actuals.cases;
+    }
+
+    if (data.actuals.icuBeds.capacity != null)
+    {
+      icuBedsTotal = icuBedsTotal + @data.actuals.icuBeds.capacity;
+    }
+    if (data.actuals.icuBeds.capacity != null)
+    {
+      datum.Add(@data.actuals.icuBeds.capacity);
+    }
+    else
+    {
+      datum.Add(0);
+    }
+    states.Add(@data.state);
+  }
+
+  @{
+
+    arrayOfStates = states.ToArray();
+    arrayOfDataIcuBeds = datum.ToArray();
+  }
+
+
+
+  <div>
+    <canvas id="myChart" width="400" height="400">
+
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+
+        new Chart("myChart", {
+          const labels = @arrayOfStates;
+
+          const data = {
+            labels: labels,
+            datasets: [{
+              label: 'My First dataset',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: @arrayOfDataIcuBeds
+          }]
+          };
+
+          const config = {
+            type: 'bar',
+            data: data,
+          };
+        });
+      </script>
+      <script>
+        const myChart = new Chart(
+          document.getElementById('myChart'),
+          config
+        );
+      </script>
+    </canvas>
+  </div>*@

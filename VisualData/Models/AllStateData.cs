@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+  using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -8,8 +8,8 @@ using System.Text.Json.Serialization;
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 namespace VisualData.Models
 {
-public class AllStateData
-{
+  public class AllStateData
+  {
     public string fips { get; set; }
     public string country { get; set; }
     public string state { get; set; }
@@ -27,23 +27,36 @@ public class AllStateData
     public string lastUpdatedDate { get; set; }
     public string url { get; set; }
 
-    public static AllStateData GetAllStateDatas(string apiKey)
+    public static AllStateData[] GetAllStateDatas(string apiKey)
     {
-        var apiCallTask = ApiHelper.ApiCall(apiKey);
-        string result = apiCallTask.Result;
+      var apiCallTask = ApiHelper.ApiCall(apiKey);
+      string result = apiCallTask.Result;
 
-        AllStateData allStatesData = JsonConvert.DeserializeObject<AllStateData>(result);
-        return allStatesData;
+      var ObjOrderList = new AllStateData[] { };
+      ObjOrderList = JsonConvert.DeserializeObject<AllStateData[]>(result);
+      return ObjOrderList;
+
     }
-  }
-}
-public class TestPositivityRatioDetails
-{
-    public string source { get; set; }
-}
 
-public class Metrics
-{
+    // public static AllStateData[] GetAllCountryData(string apiKey)
+    // {
+    //   var apiCallTask = ApiHelper2.ApiCall(apiKey);
+    //   string result = apiCallTask.Result;
+
+    //   var ObjOrderList2 = new AllStateData[] { };
+    //   ObjOrderList2 = JsonConvert.DeserializeObject<AllStateData[]>(result);
+    //   return ObjOrderList2;
+
+    // }
+  }
+
+  public class TestPositivityRatioDetails
+  {
+    public string source { get; set; }
+  }
+
+  public class Metrics
+  {
     public double? testPositivityRatio { get; set; }
     public TestPositivityRatioDetails testPositivityRatioDetails { get; set; }
     public double? caseDensity { get; set; }
@@ -54,38 +67,38 @@ public class Metrics
     public double? vaccinationsInitiatedRatio { get; set; }
     public double? vaccinationsCompletedRatio { get; set; }
     public double? vaccinationsAdditionalDoseRatio { get; set; }
-}
+  }
 
-public class RiskLevels
-{
+  public class RiskLevels
+  {
     public int overall { get; set; }
     public int testPositivityRatio { get; set; }
     public int caseDensity { get; set; }
     public int contactTracerCapacityRatio { get; set; }
     public int infectionRate { get; set; }
     public int icuCapacityRatio { get; set; }
-}
+  }
 
-public class HospitalBeds
-{
+  public class HospitalBeds
+  {
     public int? capacity { get; set; }
     public int? currentUsageTotal { get; set; }
     public int? currentUsageCovid { get; set; }
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class IcuBeds
-{
+  public class IcuBeds
+  {
     public int? capacity { get; set; }
     public int? currentUsageTotal { get; set; }
     public int? currentUsageCovid { get; set; }
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class Age
-{
+  public class Age
+  {
     [JsonProperty("0-19")]
     public int _019 { get; set; }
 
@@ -218,10 +231,10 @@ public class Age
 
     [JsonProperty("12-17")]
     public int? _1217 { get; set; }
-}
+  }
 
-public class Race
-{
+  public class Race
+  {
     public int ai_an { get; set; }
     public int asian { get; set; }
     public int black { get; set; }
@@ -233,43 +246,43 @@ public class Race
     public int asian_or_pacific_islander { get; set; }
     public int? multiple_other { get; set; }
     public int? native_american { get; set; }
-}
+  }
 
-public class Ethnicity
-{
+  public class Ethnicity
+  {
     public int hispanic { get; set; }
 
     [JsonProperty("non-hispanic")]
     public int NonHispanic { get; set; }
     public int unknown { get; set; }
-}
+  }
 
-public class Sex
-{
+  public class Sex
+  {
     public int female { get; set; }
     public int male { get; set; }
     public int other { get; set; }
     public int unknown { get; set; }
-}
+  }
 
-public class VaccinesAdministeredDemographics
-{
+  public class VaccinesAdministeredDemographics
+  {
     public Age age { get; set; }
     public Race race { get; set; }
     public Ethnicity ethnicity { get; set; }
     public Sex sex { get; set; }
-}
+  }
 
-public class VaccinationsInitiatedDemographics
-{
+  public class VaccinationsInitiatedDemographics
+  {
     public Age age { get; set; }
     public Race race { get; set; }
     public Ethnicity ethnicity { get; set; }
     public Sex sex { get; set; }
-}
+  }
 
-public class Actuals
-{
+  public class Actuals
+  {
     public int? cases { get; set; }
     public int deaths { get; set; }
     public int? positiveTests { get; set; }
@@ -282,136 +295,136 @@ public class Actuals
     public int? vaccinesDistributed { get; set; }
     public int? vaccinationsInitiated { get; set; }
     public int? vaccinationsCompleted { get; set; }
-    public int? vaccinationsAdditionalDose { get; set; }
+    public int? vaccinationsAdditionalDose { get; set; }  
     public int? vaccinesAdministered { get; set; }
     public VaccinesAdministeredDemographics vaccinesAdministeredDemographics { get; set; }
     public VaccinationsInitiatedDemographics vaccinationsInitiatedDemographics { get; set; }
-}
+  }
 
-public class Source
-{
+  public class Source
+  {
     public string type { get; set; }
     public string url { get; set; }
     public string name { get; set; }
-}
+  }
 
-public class Anomaly
-{
+  public class Anomaly
+  {
     public string date { get; set; }
     public string type { get; set; }
     public double original_observation { get; set; }
-}
+  }
 
-public class Cases
-{
+  public class Cases
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class Deaths
-{
+  public class Deaths
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class PositiveTests
-{
+  public class PositiveTests
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class NegativeTests
-{
+  public class NegativeTests
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class ContactTracers
-{
+  public class ContactTracers
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class NewCases
-{
+  public class NewCases
+  {
     public List<object> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class NewDeaths
-{
+  public class NewDeaths
+  {
     public List<object> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class VaccinesDistributed
-{
+  public class VaccinesDistributed
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class VaccinationsInitiated
-{
+  public class VaccinationsInitiated
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class VaccinationsCompleted
-{
+  public class VaccinationsCompleted
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class VaccinationsAdditionalDose
-{
+  public class VaccinationsAdditionalDose
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class VaccinesAdministered
-{
+  public class VaccinesAdministered
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class TestPositivityRatio
-{
+  public class TestPositivityRatio
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class CaseDensity
-{
+  public class CaseDensity
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class ContactTracerCapacityRatio
-{
+  public class ContactTracerCapacityRatio
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class InfectionRate
-{
+  public class InfectionRate
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class InfectionRateCI90
-{
+  public class InfectionRateCI90
+  {
     public List<Source> sources { get; set; }
     public List<Anomaly> anomalies { get; set; }
-}
+  }
 
-public class IcuCapacityRatio
-{
+  public class IcuCapacityRatio
+  {
     public List<Source> sources { get; set; }
     public List<object> anomalies { get; set; }
-}
+  }
 
-public class Annotations
-{
+  public class Annotations
+  {
     public Cases cases { get; set; }
     public Deaths deaths { get; set; }
     public PositiveTests positiveTests { get; set; }
@@ -435,4 +448,5 @@ public class Annotations
     public object vaccinationsInitiatedRatio { get; set; }
     public object vaccinationsCompletedRatio { get; set; }
     public object vaccinationsAdditionalDoseRatio { get; set; }
+  }
 }

@@ -4,13 +4,17 @@ using VisualData.Models;
 
 namespace VisualData.Controllers
 {
-    [EnableCors("MyAllowSpecificOrigins")]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
             var allDatasets = AllStateData.GetAllStateDatas(EnvironmentVariables.ApiKey);
             return View(allDatasets);
+        }
+
+        public IActionResult Resources()
+        {
+            return View();
         }
     }
 }

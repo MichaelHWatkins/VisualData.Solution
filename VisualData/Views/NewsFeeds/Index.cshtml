@@ -1,0 +1,16 @@
+<h1>All Articles:</h1>
+
+<ol>
+@foreach (var article in Model)
+{
+    <ul>
+        <li>Author: @article.author</li>
+        <li>Title: @article.title</li>
+        <li>Description: @article.description</li>
+        <li>URL: @article.url</li>
+
+
+    </ul>
+    <br>
+}
+</ol>

@@ -69,3 +69,45 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+/* Cards
+-------------------------------------------------- */
+
+.card{
+  width:50%;
+  margin: auto;
+  display: flex;
+  margin-bottom: 35px;
+}
+
+.table{
+  margin-bottom: 55px;
+}
+/*----------NAVBAR-------------------*/
+.nav-item{
+  padding: 1rem;
+}
+
+
+
+
+/*---HERO---*/
+#hero{
+  background-image: url('https://images.unsplash.com/photo-1584036533827-45bce166ad94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2664&q=80');
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  background-position: center;
+  text-align: right;
+  height: 45vh;
+  border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+#heroText {
+  padding-top: 10vh;
+}
+
+
+/*---H T---*/
+font-size:8vw;
