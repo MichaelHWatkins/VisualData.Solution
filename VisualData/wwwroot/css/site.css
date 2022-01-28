@@ -1,7 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
+﻿article.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
@@ -73,41 +70,196 @@ body {
 
 /* Cards
 -------------------------------------------------- */
-
+#articeTitle{
+  font-size: 100px;
+}
 .card{
   width:50%;
   margin: auto;
   display: flex;
   margin-bottom: 35px;
+  padding: 20px 0px;
 }
-
 .table{
   margin-bottom: 55px;
 }
-/*----------NAVBAR-------------------*/
-.nav-item{
-  padding: 1rem;
+.card-body-USA{
+  text-align: center;
+}
+.card-group{
+  margin-bottom: 1rem;
 }
 
+h5.card-title{
+  text-decoration: underline;
+}
 
+#cardChart{
+  padding: none;
+}
 
+.card-body-chart{
+  padding: none;
+}
 
-/*---HERO---*/
+.card-chart{
+  padding: none;
+}
+
+h6.text-muted{
+  padding: .5rem;
+  margin: none;
+}
+
+/*----------NAVBAR----------*/
+
+.navbar{
+	position: sticky;
+	top: 0;
+  overflow: hidden;
+  padding: none;
+  margin-bottom:1rem;
+}
+.nav-item{
+  padding-left: 1rem;
+}
+
+.item2{
+  padding-right: 2rem;
+}
+
+.navbar a{
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: #F5F5F5;
+}
+
+nav li a:hover {
+  border-top: .12em solid rgb(68, 174, 255);
+  padding-top: .1em;
+  color: rgb(68, 174, 255);
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+#ct6{
+  padding-left: .7rem;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  color: #3FC1C9;
+}
+
+/*----------FOOTER----------*/
+#fauci{
+  height: 4.6rem;
+  float: right;
+  padding-bottom: .2rem;
+}
+
+#logo{
+  height: 4.6rem;
+  float: right;
+  padding-bottom: .2rem;
+  padding-left: .5rem;
+}
+.footer{
+  display: inline;
+  padding: none;
+}  
+
+#footerWords{
+margin: .5rem;
+}  
+
+/*----------HERO----------*/
 #hero{
-  background-image: url('https://images.unsplash.com/photo-1584036533827-45bce166ad94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2664&q=80');
+  background-image: url('https://images.unsplash.com/photo-1607077644571-11791eec3c34?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80');
   background-repeat: no-repeat;
   background-size: 100vw;
   background-position: center;
   text-align: right;
   height: 45vh;
   border-radius: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 #heroText {
   padding-top: 10vh;
+  margin-right: 5vw;
 }
 
+#hero-title {
+  color: #F5F5F5;
+  text-shadow: 0 1px 5px #364F6B;
+}
 
-/*---H T---*/
-font-size:8vw;
+#hero-text {
+  color: #364F6B;
+  font-weight: bold;
+}
+
+/*---H Text---*/
+h1 {
+  font-size:4vw;
+}
+
+/*---One off parts---*/
+
+#homeSubGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  height: max-content;
+}
+
+#topStats {
+  flex-basis: auto;
+}
+
+#resources-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: stretch;
+}
+
+.underline {
+  border-top: 2px solid;
+  padding-top: 15px;
+  margin-bottom: 35px;
+}
+#washingtonLinks {
+  margin-top: 0px;
+  margin-left: 5px;
+  padding: 15px;
+}
+#oregonLinks {
+  margin-top: 0px;
+  margin-right: 5px;
+  padding: 15px;
+}
+
+#fedCard {
+  padding: 15px;
+}
+
+#articleFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: stretch;
+  width: 100%;
+}
+
+#articleCard {
+  padding: 35px;
+  margin-left: 35px;
+}
+

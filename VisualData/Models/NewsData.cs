@@ -23,8 +23,6 @@ namespace VisualData.Models
         public string name { get; set; }
     }
 
-
-
     public static List<NewsData> GetNewsDatas(string ApiNews)
     {
       var apiCallTask = ApiHelper2.ApiCall(ApiNews);

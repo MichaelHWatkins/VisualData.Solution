@@ -1,129 +1,121 @@
 ﻿@using VisualData.Models;
-
-@*
-  1. Case data: cases, deaths, tests(positive and negative)
-  * Cases - done
-  * Positive Tests - done
-  * Deaths - done
-  2. Hospital beds and ICU beds, available, used, etc
-  * Capacity - done
-  * CurrentUsageTotal - done
-  * Current UsageCovid - done
-  3. Vaccinations: distributed, initiated, completed, add dose
-  * vaccinesDistributed
-  * vaccinationsInitiated
-  * VaccinationsCompleted
-*@
-  @{
-    @* int caseTotal = 0; *@
-    int deathTotal = 0;
-    int vaccinations = 0;
-    double infectionRate = 0.0;
-  }
-  @foreach (var data in Model)
-  {
-    @*caseTotal = caseTotal + @data.actuals.cases;
-    if (data.actuals.cases != null)
-    {
-      caseTotal = caseTotal + @data.actuals.cases;
-    } *@
-    deathTotal = deathTotal + @data.actuals.deaths;
-    if (data.actuals.vaccinesDistributed != null)
-    {
-      vaccinations = vaccinations + @data.actuals.vaccinesDistributed;
-    }
-    if (data.metrics.infectionRate != null)
-    {
-      infectionRate = infectionRate + (@data.metrics.infectionRate / 50);
-    }
-  }
+@using System.Collections.Generic;
+@using System.Web;
+@using System;
 
 <div id="hero">
   <div class="container">
     <div id="heroText">
-      <h1 class="display-4">Covid-19 Dashboard</h1>
-      <p class="lead">Up-to-date info and resources— local and national</p>
+      <h1 class="display-4" id="hero-title">Covid-19 Dashboard</h1>
+      <p class="lead" id="hero-text">Up-to-date info and resources — local and national</p>
     </div>
   </div>
 </div>
 
-    <div class="card">
-      @*<img class="card-img-top" src="../wwwroot/img/wa.jpg" alt="USA">*@
-      <div class="card-body">
-        <h2 class="card-title">United States of Covid</h2>
-        @*<h3 class="card-text"># of Cases: @caseTotal</h3>*@
-        <h3 class="card-text"># of Vaccines Given: @vaccinations</h3>
-        <h3 class="card-text"># of Deaths: @deathTotal</h3>
-        <p class="card-text"><small class="text-muted">Powered by CovidActNow</small></p>
-      </div>
-    </div>
+@{
+  int caseTotal = 0;
+  int deathTotal = 0;
+  int vaccinations = 0;
+  double infectionRate = 0.0;
+}
 
+@foreach (var data in Model)
+{
+  if (data.actuals.cases != null)
+  {
+    caseTotal = caseTotal + @data.actuals.cases;
+  }
+  deathTotal = deathTotal + @data.actuals.deaths;
+  if (data.actuals.vaccinesDistributed != null)
+  {
+    vaccinations = vaccinations + @data.actuals.vaccinesDistributed;
+  }
+  if (data.metrics.infectionRate != null)
+  {
+    infectionRate = infectionRate + (@data.metrics.infectionRate / 50);
+  }
+}
+
+<div class="container" id="homeSubGroup">
+  <div class="card" id="topStats">
+    <div class="card-body-USA">
+      <h5 class="card-title" id="USA-card-header">United States</h5>
+      <p class="card-text" id="USA-card-text">Cases: @string.Format("{0:n0}", caseTotal)</p>
+      <p class="card-text" id="USA-card-text">Vaccines Given: @string.Format("{0:n0}", vaccinations)</p>
+      <p class="card-text" id="USA-card-text">Deaths: @string.Format("{0:n0}", deathTotal)</p>
+      <p class="card-text" ><small class="text-muted">Powered by CovidActNow</small></p>
+    </div>
+  </div>
+  <div class="card" id="cardChart" style="overflow: hidden; padding: none">
+      <div id="chart_div"></div>
+  </div>
+</div>
 <h3>Covid Case Statistics by State</h3>
 <table class="table table-striped">
   <thead>
     <tr>
       <th class="text-center" scope="col">State</th>
-      <th class="text-center" scope="col">Infection Rate</th>
       <th class="text-center" scope="col">Cases</th>
+      <th class="text-center" scope="col">Infection Rate: R<span style="font-size: .7rem">(t)</span></th>
       <th class="text-center" scope="col">Deaths</th>
     </tr>
   </thead>
   <tbody>
     @foreach (var data in Model)
-    { 
+    {
       @if (@data.state == "WA")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.cases</td>
-          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
-          <td class="text-center" scope="col">@data.actuals.deaths</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.cases)</td>
+          <td class="text-center" scope="col">@string.Format("{0:0.00}", @data.metrics.infectionRate)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.deaths)</td>
         </tr>
-      } 
+      }
       @if (@data.state == "OR")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.cases</td>
-          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
-          <td class="text-center" scope="col">@data.actuals.deaths</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.cases)</td>
+          <td class="text-center" scope="col">@string.Format("{0:0.00}", @data.metrics.infectionRate)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.deaths)</td>
         </tr>
       }
       @if (@data.state == "AK")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.cases</td>
-          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
-          <td class="text-center" scope="col">@data.actuals.deaths</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.cases)</td>
+          <td class="text-center" scope="col">@string.Format("{0:0.00}", @data.metrics.infectionRate)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.deaths)</td>
         </tr>
       }
       @if (@data.state == "CO")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.cases</td>
-          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
-          <td class="text-center" scope="col">@data.actuals.deaths</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.cases)</td>
+          <td class="text-center" scope="col">@string.Format("{0:0.00}", @data.metrics.infectionRate)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.deaths)</td>
         </tr>
       }
       @if (@data.state == "GA")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.cases</td>
-          <td class="text-center" scope="col">@data.metrics.infectionRate</td>
-          <td class="text-center" scope="col">@data.actuals.deaths</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.cases)</td>
+          <td class="text-center" scope="col">@string.Format("{0:0.00}", @data.metrics.infectionRate)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.deaths)</td>
         </tr>
       }
     }
   </tbody>
 </table>
-<h3>Covid Vaccination Statistics by State</h3>
+<h3>Hospital ICU Bed Statistics by State</h3>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th class="text-center"      scope="col">State</th>
+      <th class="text-center" scope="col">State</th>
       <th class="text-center" scope="col">ICU Beds Capacity</th>
       <th class="text-center" scope="col">ICU Beds Used</th>
       <th class="text-center" scope="col">ICU Beds Covid</th>
@@ -131,50 +123,50 @@
   </thead>
   <tbody>
     @foreach (var data in Model)
-    { 
+    {
       @if (@data.state == "WA")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.capacity)</td>
           <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.currentUsageCovid)</td>
         </tr>
-      } 
+      }
       @if (@data.state == "OR")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.capacity)</td>
           <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.currentUsageCovid)</td>
         </tr>
       }
       @if (@data.state == "AK")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.capacity)</td>
           <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
-        </tr> 
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.currentUsageCovid)</td>
+        </tr>
       }
       @if (@data.state == "CO")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.capacity)</td>
           <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.currentUsageCovid)</td>
         </tr>
       }
       @if (@data.state == "GA")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.capacity</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.capacity)</td>
           <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageTotal</td>
-          <td class="text-center" scope="col">@data.actuals.icuBeds.currentUsageCovid</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.icuBeds.currentUsageCovid)</td>
         </tr>
       }
     }
@@ -184,145 +176,125 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th class="text-center"      scope="col">State</th>
+      <th class="text-center" scope="col">State</th>
       <th class="text-center" scope="col">Administered</th>
       <th class="text-center" scope="col">Initiated</th>
       <th class="text-center" scope="col">Completed</th>
-      
+      <th class="text-center" scope="col">Additonal Dose</th>
     </tr>
   </thead>
   <tbody>
     @foreach (var data in Model)
-    { 
+    {
       @if (@data.state == "WA")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinesAdministered)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsInitiated)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsCompleted)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsAdditionalDose)</td>
         </tr>
-      }   
+      }
       @if (@data.state == "OR")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinesAdministered)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsInitiated)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsCompleted)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsAdditionalDose)</td>
         </tr>
       }
       @if (@data.state == "AK")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
-        </tr> 
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinesAdministered )</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsInitiated)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsCompleted)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsAdditionalDose)</td>
+        </tr>
       }
       @if (@data.state == "CO")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinesAdministered)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsInitiated)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsCompleted)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsAdditionalDose)</td>
         </tr>
       }
       @if (@data.state == "GA")
       {
         <tr>
           <td class="text-center" scope="col">@data.state</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinesAdministered  </td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsInitiated</td>
-          <td class="text-center" scope="col">@data.actuals.vaccinationsCompleted</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinesAdministered)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsInitiated)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsCompleted)</td>
+          <td class="text-center" scope="col">@string.Format("{0:n0}", @data.actuals.vaccinationsAdditionalDose)</td>
         </tr>
       }
     }
   </tbody>
 </table>
 
+@*------------GRAPH CARD------------*@
+@{
+  ViewData["Title"] = "Chart";
+  string chartTitle = "Cumulative confirmed or suspected cases";
+}
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
 
+  function drawChart() {
+    let data = new google.visualization.arrayToDataTable([
+      ["Element", "Data", { role: "style" } ],
+      @foreach(var data in Model)
+      {
+        @if(data.state == "WA")
+        {
+          <text>["@data.state", @data.actuals.cases, "color: #3498db"]</text>
+        }
+        @if(data.state == "OR")
+        {
+          <text>["@data.state", @data.actuals.cases, "color: #f5f5f5"],</text>
+        }
+        @if(data.state == "CO")
+        {
+          <text>["@data.state", @data.actuals.cases, "color: #3fc1c9"],</text>
+        }
+        @if(data.state == "AK")
+        {
+          <text>["@data.state", @data.actuals.cases, "color: #364f6b"],</text>
+        }
+        @if(data.state == "GA")
+        {
+          <text>["@data.state", @data.actuals.cases, "color: #fc5185"],</text>
+        }
+      }
+    ]);
 
+    let view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                    { calc: "stringify",
+                      sourceColumn: 1,
+                      type: "string",
+                      role: "annotation" },
+                    2]);
 
-
-
-
-
-
-  <!-- graphs  -->
-@*
-  @{
-    int caseTotal = 0;
-    int icuBedsTotal = 0;
-    List<string> states = new List<string> { };
-    string[] arrayOfStates = new string[53];
-    int[] arrayOfDataIcuBeds = new int[53];
-    List<int> datum = new List<int> { };
-  }
-  @foreach (var data in Model)
-  {
-    if (data.actuals.vaccinesDistributed != null)
-    {
-      caseTotal = caseTotal + @data.actuals.cases;
-    }
-
-    if (data.actuals.icuBeds.capacity != null)
-    {
-      icuBedsTotal = icuBedsTotal + @data.actuals.icuBeds.capacity;
-    }
-    if (data.actuals.icuBeds.capacity != null)
-    {
-      datum.Add(@data.actuals.icuBeds.capacity);
-    }
-    else
-    {
-      datum.Add(0);
-    }
-    states.Add(@data.state);
-  }
-
-  @{
-
-    arrayOfStates = states.ToArray();
-    arrayOfDataIcuBeds = datum.ToArray();
-  }
-
-
-
-  <div>
-    <canvas id="myChart" width="400" height="400">
-
-
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script>
-
-        new Chart("myChart", {
-          const labels = @arrayOfStates;
-
-          const data = {
-            labels: labels,
-            datasets: [{
-              label: 'My First dataset',
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'rgb(255, 99, 132)',
-              data: @arrayOfDataIcuBeds
-          }]
-          };
-
-          const config = {
-            type: 'bar',
-            data: data,
-          };
-        });
-      </script>
-      <script>
-        const myChart = new Chart(
-          document.getElementById('myChart'),
-          config
-        );
-      </script>
-    </canvas>
-  </div>*@
+    let options = {
+      title: "@chartTitle",
+      width: 550,
+      height: 180,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    let chart = new google.visualization.BarChart(document.getElementById("chart_div"));
+    chart.draw(view, options);
+}
+</script>

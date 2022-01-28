@@ -8,7 +8,7 @@ namespace VisualData
     public static async Task<string> ApiCall(string ApiNews)
     {
       RestClient client = new RestClient("https://newsapi.org/v2");
-      RestRequest request = new RestRequest($"everything?q=covid&from=2021-12-26&sortBy=publishedAt&apiKey={ApiNews}", Method.GET);
+      RestRequest request = new RestRequest($"top-headlines?q=covid&language=en&sortBy=publishedAt&apiKey={ApiNews}", Method.GET);
       var response = await client.ExecuteTaskAsync(request);
       return response.Content;
     }

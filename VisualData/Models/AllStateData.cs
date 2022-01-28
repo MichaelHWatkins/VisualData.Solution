@@ -1,11 +1,10 @@
-  using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 namespace VisualData.Models
 {
   public class AllStateData
@@ -37,17 +36,6 @@ namespace VisualData.Models
       return ObjOrderList;
 
     }
-
-    // public static AllStateData[] GetAllCountryData(string apiKey)
-    // {
-    //   var apiCallTask = ApiHelper2.ApiCall(apiKey);
-    //   string result = apiCallTask.Result;
-
-    //   var ObjOrderList2 = new AllStateData[] { };
-    //   ObjOrderList2 = JsonConvert.DeserializeObject<AllStateData[]>(result);
-    //   return ObjOrderList2;
-
-    // }
   }
 
   public class TestPositivityRatioDetails
@@ -295,7 +283,7 @@ namespace VisualData.Models
     public int? vaccinesDistributed { get; set; }
     public int? vaccinationsInitiated { get; set; }
     public int? vaccinationsCompleted { get; set; }
-    public int? vaccinationsAdditionalDose { get; set; }  
+    public int? vaccinationsAdditionalDose { get; set; }    
     public int? vaccinesAdministered { get; set; }
     public VaccinesAdministeredDemographics vaccinesAdministeredDemographics { get; set; }
     public VaccinationsInitiatedDemographics vaccinationsInitiatedDemographics { get; set; }

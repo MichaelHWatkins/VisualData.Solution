@@ -9,40 +9,52 @@
   <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-<body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Covid-19 Dashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav justify-content-end">
-          <li class="nav-item active">
-            @Html.ActionLink("Home", "Index", "Home")
-          </li>
-          <li class="nav-item">
-            @Html.ActionLink("Resources", "Resources", "Home")
-          </li>
-          <li class="nav-item">
-            @Html.ActionLink("Newsfeed", "Index", "Newsfeeds")
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+<body onload=display_ct();>@*--onload=display_ct() starts the time counter--*@
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #364F6B;">
+    <p class="navbar-brand" style="margin-bottom: 0px; margin-right: 0px;">@Html.ActionLink("Covid-19 : Dashboard", "Index", "Home") </p>
+
+    <script>function display_ct6() {
+        var x = new Date()
+        var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
+        hours = x.getHours() % 12;
+        hours = hours ? hours : 12;
+        var x1 = x.getMonth() + 1 + "/" + x.getDate() + "/" + x.getFullYear();
+        x1 = x1 + " - " + hours + ":" + x.getMinutes() + ":" + x.getSeconds() + ampm;
+        document.getElementById('ct6').innerHTML = x1;
+        display_c6();
+      }
+      function display_c6() {
+        var refresh = 1000; // Refresh rate in milli seconds
+        mytime = setTimeout('display_ct6()', refresh)
+      }
+      display_c6()
+    </script>
+    <span id='ct6'></span>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          @Html.ActionLink("Resources", "Resources", "Home")
+        </li>
+        <li class="nav-item item2">
+          @Html.ActionLink("Newsfeed", "Index", "Newsfeeds")
+        </li>
+      </ul>
+  </nav>
   <div class="container">
     <main role="main" class="pb-3">
       @RenderBody()
     </main>
   </div>
 
+  <img id="logo"
+    src="~/img/actnowlogo.png"
+    alt="logo">
   <footer class="border-top footer text-muted">
-    <div class="container">
-      &copy; 2022 - Covid-19: Dashboard - Alber<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
+    <div id="footerWords">&copy; 2022 - Covid-19: Dashboard - Karon Axon, Albert Lee, Ella Tanttu, Michael Watkins</div>
   </footer>
+  <img id="fauci"
+    src="https://media4.giphy.com/media/pnWRtke3bkqKYUtc3Z/giphy.gif?cid=790b76111377305b8d46fb808dce78641b7e665b14a0b3e4&rid=giphy.gif&ct=g"
+    alt="fauci">
   <script src="~/lib/jquery/dist/jquery.min.js"></script>
   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>

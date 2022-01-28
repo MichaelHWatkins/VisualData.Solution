@@ -15657,11 +15657,6 @@
       "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Shared/Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/Users/michaelwatkins1/Desktop/VisualData.Solution/VisualData/Views/Home/Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"

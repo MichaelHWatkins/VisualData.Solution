@@ -1,16 +1,14 @@
-<h1>All Articles:</h1>
+<h1>Top Covid Stories Right Now</h1>
 
-<ol>
-@foreach (var article in Model)
-{
-    <ul>
-        <li>Author: @article.author</li>
-        <li>Title: @article.title</li>
-        <li>Description: @article.description</li>
-        <li>URL: @article.url</li>
+<div class="container-fluid" id="articleFlex">
 
+  @foreach (var article in Model)
+  {
+    <div class="card w-100" id="articleCard">
+        <h5 class="card-title"><a href="@article.url">@article.title</a></h5>
+        <p class="card-subtitle"><b>Author: </b>@article.author</p>
+        <p class="card-text" id="newDescription">@article.description</p>
+    </div>
+  }
 
-    </ul>
-    <br>
-}
-</ol>
+</div>
