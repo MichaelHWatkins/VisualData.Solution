@@ -1,5 +1,7 @@
 # _Data Reporting Application - Covid-19/USA statistics_
 
+![Video of Project](./VisualData/wwwroot/img/visual_data.gif)
+
 #### By:
 * _Albert Lee_
 * _Karen Axon_
